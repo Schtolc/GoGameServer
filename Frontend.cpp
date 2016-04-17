@@ -4,8 +4,8 @@
 
 #include "Frontend.h"
 
-Frontend::Frontend(boost::asio::ip::tcp::endpoint endpoint) : io_service(), ep(endpoint) {
-    backend = new Backend(4);
+Frontend::Frontend(boost::asio::ip::tcp::endpoint endpoint, int playerAmount) : io_service(), ep(endpoint) {
+    backend = new Backend(playerAmount);
 }
 
 void Frontend::handle_connections() {

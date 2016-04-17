@@ -11,17 +11,18 @@
 #include <assert.h>
 
 #define BUFFER_SIZE 6
-#define WAITING 0
-#define SEVERREADY 1
+#define WAITING 4
+#define SERVERREADY 0
 #define SERVERFULL 2
-#define GAMEOVER 3
+#define GAMEOVER 1
 
-#define IS_WAITING 10
+#define SERVER_STATE 10
 #define IS_LOCKED 11
 #define REGISTER 12
 #define MAKESTEP 13
 #define GETSTEP 14
 #define PASSSTEP 15
+#define GET_GAMEOVER 16
 
 
 struct Player {
@@ -60,7 +61,7 @@ public:
 
     std::array<int, BUFFER_SIZE> parse_request(std::array<int, BUFFER_SIZE> &request);
 
-    bool isWaiting();
+    int serverState();
     bool isLocked(int token);
     int registerPlayer(int token);
     bool makeStep(int token, Step step);

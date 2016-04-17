@@ -12,8 +12,8 @@ Backend::Backend(int playerAmount) : amount(playerAmount), state(WAITING), curre
 std::array<int, BUFFER_SIZE> Backend::parse_request(std::array<int, BUFFER_SIZE> &request) {
     std::array<int, BUFFER_SIZE> response = std::array<int, BUFFER_SIZE>();
     switch (request[0]) {
-        case IS_WAITING:
-            response[0] = isWaiting();
+        case SERVER_STATE:
+            response[0] = serverState();
             break;
         case IS_LOCKED:
             response[0] = isLocked(request[1]);
@@ -34,6 +34,10 @@ std::array<int, BUFFER_SIZE> Backend::parse_request(std::array<int, BUFFER_SIZE>
         case PASSSTEP:
             response[0] = passStep(request[1]);
             break;
+        case GET_GAMEOVER:
+            state = GAMEOVER;
+            response[0] = true;
+            break;
         default:
             std::cout << "error happended" << std::endl;
     }
@@ -41,9 +45,11 @@ std::array<int, BUFFER_SIZE> Backend::parse_request(std::array<int, BUFFER_SIZE>
     return response;
 }
 
-bool Backend::isWaiting() {
-    return players.size() < amount;
+int Backend::serverState() {
+//
+    return state;
 }
+
 
 bool Backend::isLocked(int token) {
     assert (0 <= token && token <= 1000);
@@ -61,6 +67,9 @@ int Backend::registerPlayer(int token) {
             currentToken = token;
         }
         players.insert(std::pair<int, Player>(token, Player(0, players.size(), false)));
+        if (players.size() == amount) {
+            state = SERVERREADY;
+        }
         return players.size() - 1;
     }
     std::cout << "player already registerd" << std::endl;

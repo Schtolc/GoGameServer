@@ -20,7 +20,7 @@ private:
     Backend* backend;
     Frontend() = default;
 public:
-    Frontend(boost::asio::ip::tcp::endpoint ep);
+    Frontend(boost::asio::ip::tcp::endpoint ep, int playerAmount);
     void handle_connections();
     ~Frontend();
 };
