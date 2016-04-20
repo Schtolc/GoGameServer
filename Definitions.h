@@ -1,0 +1,23 @@
+//
+// Created by pavelgolubev345 on 20.04.16.
+//
+
+#ifndef GOGAMESERVER_DEFINITIONS_H
+#define GOGAMESERVER_DEFINITIONS_H
+
+#define BUFFER_SIZE 6
+#define WAITING 4
+#define SERVERREADY 0
+#define SERVERFULL 2
+#define GAMEOVER 1
+
+#define SERVER_STATE 10
+#define IS_LOCKED 11
+#define REGISTER 12
+#define MAKESTEP 13
+#define GETSTEP 14
+#define PASSSTEP 15
+#define GET_GAMEOVER 16
+
+
+#endif //GOGAMESERVER_DEFINITIONS_H

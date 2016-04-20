@@ -19,19 +19,19 @@ void Frontend::handle_connections() {
             boost::system::error_code error;
 
             sock.read_some(boost::asio::buffer(data), error);
-            std::array<int, BUFFER_SIZE> response = backend->parse_request(data);
+            std::array<int, BUFFER_SIZE> response = backend->handle_request(data);
 
 
             if (error == boost::asio::error::eof)
-                break; // Connection closed cleanly by peer.
+                break;
             else if (error)
-                throw boost::system::system_error(error); // Some other error.
+                throw boost::system::system_error(error);
 
             sock.write_some(boost::asio::buffer(response));
         }
     }
     catch (std::exception &e) {
-        std::cerr << "Exception in thread: " << e.what() << "\n";
+        std::cerr << "Exception: " << e.what() << "\n";
     }
 }
 

@@ -11,13 +11,14 @@
 #include <utility>
 #include <cstdlib>
 #include "Backend.h"
+#include "Definitions.h"
 
 
 class Frontend {
 private:
     boost::asio::io_service io_service;
     boost::asio::ip::tcp::endpoint ep;
-    Backend* backend;
+    Backend * backend;
     Frontend() = default;
 public:
     Frontend(boost::asio::ip::tcp::endpoint ep, int playerAmount);
